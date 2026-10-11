@@ -986,6 +986,19 @@ body {
 .plaque span { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; opacity: .8; }
 .gal-nav { display: flex; align-items: center; gap: 18px; font-family: 'Jost', sans-serif; font-size: 13px; color: #7d5a68; }
 .gal-nav.is-hidden { display: none; }
+.gal-nag {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 16.5px;
+  line-height: 1.35;
+  color: #e04e79;
+  max-width: 300px;
+  min-height: 22px;
+  opacity: 0;
+}
+.museum.is-active .room > .gal-nag { animation: none; }
+.gal-nag.is-on { animation: nagIn .5s cubic-bezier(.2, 1.4, .4, 1) both !important; }
+@keyframes nagIn { from { opacity: 0; transform: translateY(8px) scale(.9); } to { opacity: 1; transform: none; } }
+.frame-inner.is-wiggle { animation: giftShake .5s ease; }
 .nav-btn { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid rgba(236, 63, 120, .4); background: #fff; color: #ec3f78; font-size: 16px; cursor: pointer; }
 .nav-btn:active { background: #ffe3ea; }
 

@@ -1073,7 +1073,30 @@
   scratch.addEventListener('pointercancel', endScratch);
   document.getElementById('galPrev').addEventListener('click', () => { sfxTick(900); showGallery((galIndex - 1 + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length); });
   document.getElementById('galNext').addEventListener('click', () => { sfxTick(1100); showGallery((galIndex + 1) % GALLERY_PHOTOS.length); });
-  document.getElementById('galDone').addEventListener('click', () => { buzz(10); scenes.go('scene-eleven'); });
+  // no sneaking past the gallery without a look
+  (() => {
+    const btn = document.getElementById('galDone');
+    const nag = document.getElementById('galNag');
+    const lines = [
+      'Wait wait wait… you forgot to see what\'s in there, Tisuu rani 👀',
+      'Nope. Rub the picture first. Rupu didn\'t cover it for nothing 😤',
+      'The frame is literally begging. Finger. Picture. Rub. 🙏',
+      'Okay I\'ll let you go… just kidding, scratch it first 😌'
+    ];
+    let nags = 0;
+    btn.addEventListener('click', () => {
+      if (!galRevealed[galIndex]) {
+        nag.textContent = lines[Math.min(nags, lines.length - 1)];
+        nag.classList.remove('is-on'); void nag.offsetWidth; nag.classList.add('is-on');
+        nags++;
+        btn.classList.remove('is-shake'); void btn.offsetWidth; btn.classList.add('is-shake');
+        frameInner.classList.remove('is-wiggle'); void frameInner.offsetWidth; frameInner.classList.add('is-wiggle');
+        sfxTick(500); buzz([20, 40, 20]);
+        return;
+      }
+      buzz(10); scenes.go('scene-eleven');
+    });
+  })();
   document.addEventListener('scene:enter', e => { if (e.detail === 'scene-ten') setTimeout(() => showGallery(0), 50); });
   window.addEventListener('resize', () => { if (scenes.current === 'scene-ten' && !galRevealed[galIndex]) paintCover(); });
 
