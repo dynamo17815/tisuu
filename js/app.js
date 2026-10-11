@@ -1548,7 +1548,7 @@
   })();
 
   // hidden note: tap the moon three times on the last page (edit the line — it's your private message)
-  const HIDDEN_NOTE = "P.S. You're still my favourite notification. Always have been.";
+  const HIDDEN_NOTE = "I still remember all of it — our first meeting, the first hug, the first kiss, our very first date.\nI always will.\n\nLove you from the core of my heart. ❤️";
   (() => {
     const moon = document.getElementById('moonWrap');
     const secret = document.getElementById('secret');

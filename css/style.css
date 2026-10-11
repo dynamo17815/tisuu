@@ -1450,7 +1450,7 @@ body {
 }
 .secret.is-on .secret-card { transform: none; }
 .secret-kicker { font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: .32em; text-transform: uppercase; color: #e04e79; margin-bottom: 12px; }
-.secret-text { font-family: 'Patrick Hand', cursive; font-size: 19px; line-height: 1.5; }
+.secret-text { font-family: 'Patrick Hand', cursive; font-size: 19px; line-height: 1.5; white-space: pre-line; }
 .secret-sign { font-family: var(--script); font-size: 18px; color: #ec3f78; margin-top: 12px; text-align: right; }
 .secret-close { position: absolute; right: 8px; top: 6px; width: 32px; height: 32px; border: 0; background: transparent; color: #a0788a; font-size: 24px; cursor: pointer; }
 
