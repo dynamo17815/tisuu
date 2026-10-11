@@ -1584,7 +1584,7 @@
   /* ───────────────────────── birthday lock ───────────────────────── */
   // Set BIRTHDAY_LOCK to true before sending her the link. Before LOCK_UNTIL she sees a countdown;
   // it unlocks itself at that moment. Opening the link with ?rupu at the end always skips it (for you).
-  const BIRTHDAY_LOCK = false;
+  const BIRTHDAY_LOCK = true;
   const LOCK_UNTIL = '2026-10-22T00:00:00+05:30';
   (() => {
     const lock = document.getElementById('lock');
