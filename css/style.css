@@ -1187,8 +1187,11 @@ body {
   position: absolute;
   right: 9%; top: 7%;
   width: 64px; height: 64px;
+  padding: 16px;              /* generous tap target */
+  margin: -16px;
   z-index: 6;
   pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
 }
 .moon {
   position: absolute;

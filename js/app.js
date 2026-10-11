@@ -827,14 +827,16 @@
     for (let i = 0; i < PHOTO_COUNT; i++) {
       const col = i % cols, row = (i / cols) | 0;
       const portrait = Math.random() < 0.65;
-      const w = Math.min(cellW * (portrait ? 0.72 : 0.86), 220);
-      const h = portrait ? w * 1.22 : w * 0.78;
-      const x = clamp(col * cellW + (cellW - w) / 2 + rnd(-cellW * 0.1, cellW * 0.1), 8, W - w - 8);
-      const y = H * 0.03 + row * cellH + (cellH - h) / 2 + rnd(-cellH * 0.1, cellH * 0.1);
+      // size each card to fit its cell both ways, so tall phones don't stack them on top of each other
+      let w, h;
+      if (portrait) { h = Math.min(cellH * 0.94, cellW * 0.74 * 1.22, 268); w = h / 1.22; }
+      else          { w = Math.min(cellW * 0.88, cellH * 0.94 / 0.78, 220); h = w * 0.78; }
+      const x = clamp(col * cellW + (cellW - w) / 2 + rnd(-cellW * 0.06, cellW * 0.06), 8, W - w - 8);
+      const y = H * 0.03 + row * cellH + (cellH - h) / 2 + rnd(-cellH * 0.05, cellH * 0.05);
       const card = document.createElement('figure');
       card.className = 'pcard';
       card.style.cssText = `--w:${w.toFixed(0)}px;--h:${h.toFixed(0)}px;--x:${x.toFixed(0)}px;--y:${y.toFixed(0)}px;` +
-        `--r:${rnd(-11, 11).toFixed(1)}deg;--d:${(0.3 + order[i] * 0.3).toFixed(2)}s;z-index:${order[i]}`;
+        `--r:${rnd(-8, 8).toFixed(1)}deg;--d:${(0.3 + order[i] * 0.3).toFixed(2)}s;z-index:${order[i]}`;
       const img = document.createElement('img');
       img.alt = '';
       img.addEventListener('load', () => card.classList.add('has-img'));
@@ -1529,7 +1531,7 @@
     const secret = document.getElementById('secret');
     document.getElementById('secretText').textContent = HIDDEN_NOTE;
     let taps = 0, tapT = 0;
-    moon.addEventListener('pointerup', () => {
+    moon.addEventListener('click', () => {
       clearTimeout(tapT);
       taps++;
       sfxTick(700 + taps * 150); buzz(8);
@@ -1540,7 +1542,7 @@
         secret.classList.add('is-on'); sfxSparkle(); buzz([15, 30, 40]);
         return;
       }
-      tapT = setTimeout(() => { taps = 0; moon.querySelector('.moon-hint').textContent = 'psst… tap the moon ×3'; }, 1500);
+      tapT = setTimeout(() => { taps = 0; moon.querySelector('.moon-hint').textContent = 'psst… tap the moon ×3'; }, 4000);
     });
     document.getElementById('secretClose').addEventListener('click', () => secret.classList.remove('is-on'));
     secret.addEventListener('click', e => { if (e.target === secret) secret.classList.remove('is-on'); });
