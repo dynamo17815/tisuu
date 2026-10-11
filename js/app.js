@@ -279,9 +279,24 @@
 
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
 
+  // phones only allow fullscreen after a touch — her first touch is the bow, so that's the moment
+  let wentFullscreen = false;
+  function goFullscreen() {
+    if (wentFullscreen) return;
+    wentFullscreen = true;
+    const el = document.documentElement;
+    const req = el.requestFullscreen || el.webkitRequestFullscreen;
+    if (!req || document.fullscreenElement) return;
+    try {
+      const p = req.call(el, { navigationUI: 'hide' });
+      if (p && p.then) p.then(() => { try { screen.orientation.lock('portrait').catch(() => {}); } catch (_) {} }).catch(() => {});
+    } catch (_) {}
+  }
+
   function onDown(e) {
     if (state !== 'idle') return;
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+    if (e.pointerType !== 'mouse') goFullscreen();
     cancelAnimationFrame(snapRaf);
     state = 'pulling';
     drag = { id: e.pointerId, x: e.clientX, y: e.clientY };
