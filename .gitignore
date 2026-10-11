@@ -1,0 +1,4 @@
+tools/
+assets/photos/originals/
+*.zip
+.claude/
