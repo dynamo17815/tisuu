@@ -1553,22 +1553,23 @@
     const moon = document.getElementById('moonWrap');
     const secret = document.getElementById('secret');
     document.getElementById('secretText').textContent = HIDDEN_NOTE;
-    let taps = 0, tapT = 0;
-    moon.addEventListener('click', () => {
-      clearTimeout(tapT);
+    // three taps, however slow — the count only resets when the note is closed
+    let taps = 0;
+    const hint = moon.querySelector('.moon-hint');
+    moon.addEventListener('pointerdown', e => {
+      e.preventDefault(); e.stopPropagation();
+      if (secret.classList.contains('is-on')) return;
       taps++;
       sfxTick(700 + taps * 150); buzz(8);
-      moon.querySelector('.moon-hint').textContent = taps === 1 ? 'two more…' : taps === 2 ? 'one more…' : 'psst… tap the moon ×3';
+      hint.textContent = taps === 1 ? 'two more…' : taps === 2 ? 'one more…' : 'found it ♥';
       if (taps >= 3) {
-        taps = 0;
         moon.classList.add('is-found');            // hints stop once she's found it
         secret.classList.add('is-on'); sfxSparkle(); buzz([15, 30, 40]);
-        return;
       }
-      tapT = setTimeout(() => { taps = 0; moon.querySelector('.moon-hint').textContent = 'psst… tap the moon ×3'; }, 4000);
     });
-    document.getElementById('secretClose').addEventListener('click', () => secret.classList.remove('is-on'));
-    secret.addEventListener('click', e => { if (e.target === secret) secret.classList.remove('is-on'); });
+    const closeSecret = () => { secret.classList.remove('is-on'); taps = 0; };
+    document.getElementById('secretClose').addEventListener('click', closeSecret);
+    secret.addEventListener('click', e => { if (e.target === secret) closeSecret(); });
   })();
 
   document.addEventListener('scene:enter', e => {

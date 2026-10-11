@@ -1200,12 +1200,14 @@ body {
   position: absolute;
   right: 9%; top: 7%;
   width: 64px; height: 64px;
-  padding: 16px;              /* generous tap target */
-  margin: -16px;
-  z-index: 6;
+  padding: 26px;              /* generous tap target */
+  margin: -26px;
+  z-index: 7;
   pointer-events: auto;
+  touch-action: none;
   -webkit-tap-highlight-color: transparent;
 }
+.moon-wrap * { pointer-events: none; }   /* every tap lands on the wrapper itself */
 .moon {
   position: absolute;
   inset: -14px;
