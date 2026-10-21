@@ -1548,7 +1548,7 @@
   })();
 
   // hidden note: tap the moon three times on the last page (edit the line — it's your private message)
-  const HIDDEN_NOTE = "I still remember all of it — our first meeting, the first hug, the first kiss, our very first date.\nI always will.\n\nLove you from the core of my heart. ❤️";
+  const HIDDEN_NOTE = "I might be far from you, but I'll always be right here, in your heart.\nWhenever you yaad me, just tap this moon once — and I'll come to you.\n\nLove you from the core of my heart, baby girl. ❤️";
   (() => {
     const moon = document.getElementById('moonWrap');
     const secret = document.getElementById('secret');
@@ -1561,7 +1561,16 @@
       if (secret.classList.contains('is-on')) return;
       taps++;
       sfxTick(700 + taps * 150); buzz(8);
-      hint.textContent = taps === 1 ? 'two more…' : taps === 2 ? 'one more…' : 'found it ♥';
+      if (moon.classList.contains('is-found')) {
+        // she already knows the secret: every tap now is "I yaad you" — so he comes
+        const r = moon.querySelector('.moon').getBoundingClientRect();
+        burst(r.left + r.width / 2, r.top + r.height / 2, 26);
+        hint.textContent = "I'm here, Tisuu rani ♥";
+        moon.classList.add('is-here');
+        clearTimeout(moon._hereT);
+        moon._hereT = setTimeout(() => moon.classList.remove('is-here'), 2600);
+      }
+      else hint.textContent = taps === 1 ? 'two more…' : taps === 2 ? 'one more…' : 'found it ♥';
       if (taps >= 3) {
         moon.classList.add('is-found');            // hints stop once she's found it
         secret.classList.add('is-on'); sfxSparkle(); buzz([15, 30, 40]);

@@ -1525,3 +1525,7 @@ body {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* after she's found the note, a single tap on the moon answers her */
+.moon-wrap.is-found.is-here .moon-hint { animation: rise .4s ease both; }
+.moon-wrap.is-found.is-here .moon { animation: moonCall 1.2s ease-in-out 1; }
