@@ -1548,7 +1548,7 @@
   })();
 
   // hidden note: tap the moon three times on the last page (edit the line — it's your private message)
-  const HIDDEN_NOTE = "I might be far from you, but I'll always be right here, in your heart.\nWhenever you yaad me, just tap this moon once — and I'll come to you.\n\nLove you from the core of my heart, baby girl. ❤️";
+  const HIDDEN_NOTE = "I might be far from you, but I'll always be right here, in your heart.\nWhenever you yaad me, just tap your heart once — and I'll come to you.\n\nLove you from the core of my heart, baby girl. ❤️";
   (() => {
     const moon = document.getElementById('moonWrap');
     const secret = document.getElementById('secret');
